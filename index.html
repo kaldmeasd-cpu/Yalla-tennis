@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#14532d">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,6 +54,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 @media(prefers-reduced-motion:reduce){.winner-overlay,.winner-modal,.crown-wrap,.winner-modal:before,.winner-modal:after,.confetti i{animation:none!important}}
 
 </style>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
+</script>
+
 </head>
 <body>
 <header><div class="eyebrow">REAL TENNIS • TOURNAMENT</div><h1>🎾 TENNIS <span style="color:#c64dff">BRACKET BATTLE</span></h1><p>رتّب اللاعبين عشوائياً، تابع الوقت والأهداف، وصعّد الفائز إلى المرحلة التالية.</p></header>
