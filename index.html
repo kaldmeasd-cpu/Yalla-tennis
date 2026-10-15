@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بطولة التنس الواقعية</title>
+<style>
+:root{--bg:#050307;--panel:#17151c;--panel2:#211c2a;--line:#3b2a49;--text:#f7f2fb;--muted:#b9aabd;--accent:#c64dff;--accent2:#9d35ee;--blue:#1687ff;--green:#22d95c;--red:#ff454f;--gold:#ffad16}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#190c22 0,#08060b 44%,#030304 100%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+header{padding:24px 14px 16px;text-align:center;border-bottom:1px solid #2d1c38;background:#08060b}h1{margin:0 0 8px;font-size:clamp(25px,6vw,35px);letter-spacing:.3px}header p{margin:0;color:var(--muted);font-size:14px}
+main{max-width:1000px;margin:auto;padding:10px}
+.panel{background:rgba(17,15,21,.96);border:1px solid #35233f;border-radius:20px;padding:15px;margin:12px 0;box-shadow:0 10px 32px #0008}
+h2{font-size:19px;margin:0 0 13px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}
+input,select,button{font:inherit;border-radius:12px;padding:11px 12px;border:1px solid #45304f}
+input,select{background:#0a090d;color:var(--text);min-width:0;width:100%}
+button{cursor:pointer;background:#211a29;color:var(--text);font-weight:750;transition:.15s}button:hover{filter:brightness(1.16)}button:disabled{opacity:.42;cursor:not-allowed}
+.primary{background:linear-gradient(135deg,#d65bff,#9e36ee);color:white;border-color:transparent;box-shadow:0 0 15px #b63aff40}.blue{background:#087df2;color:white;border-color:transparent}.danger{background:#3c171d;color:#ffdce0;border-color:#77313b}.subtle{color:var(--muted);font-size:13px}
+.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px;margin:12px 0}.hidden{display:none!important}
+.bracket{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.round{background:#0b090e;border:1px solid #392346;border-radius:15px;padding:12px;min-width:0}.round h3{margin:0 0 10px;color:#d75aff;font-size:16px}
+.match{border:1px solid #302b34;background:#1b191f;border-radius:12px;padding:11px;margin:9px 0;box-shadow:0 4px 12px #0003}
+.matchhead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}.tag{font-size:12px;color:#c7b9cf}
+.players{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:stretch}.player{padding:11px 5px;border-radius:9px;background:#111015;text-align:center;overflow-wrap:anywhere;display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid #29232e}.vs{color:#f4dcff;background:#281633;border:1px solid #9f39c7;border-radius:24px;padding:6px 10px;align-self:center;font-size:12px;font-weight:900;box-shadow:0 0 10px #bb39ef45}
+.matchbuttons{display:flex;gap:7px;margin-top:10px}.matchbuttons button{flex:1;padding:9px 6px;font-size:13px}
+.active{border-color:var(--accent);box-shadow:0 0 0 1px #c64dff70,0 0 20px #a72be522}.winner{border-color:var(--accent)!important;background:#321540!important;color:#fff}
+.bye{font-size:12px;color:var(--gold);margin-top:8px}
+.timerbox{text-align:center;background:#08090d;border:1px solid #174a80;border-radius:17px;padding:15px;margin:12px 0;box-shadow:inset 0 0 18px #006bff0b}
+.timer{font-size:clamp(42px,11vw,62px);font-weight:900;letter-spacing:2px;font-variant-numeric:tabular-nums;color:#1687ff;text-shadow:0 0 18px #087dff55;border:1px solid #145ca2;background:#05080d;border-radius:13px;padding:8px;margin:12px 0}
+.timerlabel{color:var(--muted);font-size:13px}.timerbox .row{max-width:330px;margin:10px auto 0}.timerbox .row button{border-radius:50px;min-height:48px}
+.scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.side{background:#08090b;border:1px solid #1b6336;border-radius:16px;padding:12px;text-align:center;box-shadow:inset 0 0 14px #11db4b08}
+.side .name{font-weight:750;min-height:28px;overflow-wrap:anywhere}
+.bigscore{font-size:clamp(45px,12vw,65px);font-weight:950;line-height:1.2;color:#23e65d;margin:8px 0;text-shadow:0 0 18px #22d95c50}
+.sidebuttons{display:flex;gap:8px}.sidebuttons button{flex:1;padding:10px 4px;font-size:20px;border:0;border-radius:10px}.sidebuttons button:first-child{background:var(--red);color:white}.sidebuttons button:last-child{background:var(--green);color:#04200d}
+.winnerpick{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.winnerpick button{min-height:46px}
+.status{padding:12px;border-radius:11px;background:#0b090e;border:1px solid #302138;color:#d2c3d8;margin-top:10px;line-height:1.5}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:500px){main{padding:7px}.panel{padding:12px;border-radius:17px}.players{gap:4px}.player{font-size:13px}.matchbuttons{flex-wrap:wrap}.winnerpick{grid-template-columns:1fr}.round{padding:9px}.side{padding:9px}.sidebuttons button{font-size:18px}}
+
+.winner-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(2,2,5,.76);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);animation:overlayIn .3s ease both}
+.winner-modal{position:relative;overflow:hidden;width:min(440px,100%);text-align:center;padding:28px 20px 22px;border-radius:25px;border:1px solid #e6b8ff88;background:linear-gradient(150deg,rgba(45,20,60,.94),rgba(12,10,17,.97));box-shadow:0 0 24px #c64dff55,0 0 80px #8e2bd833;animation:winPop .65s cubic-bezier(.2,.9,.25,1.2) both}
+.winner-modal:before,.winner-modal:after{content:"✦　✧　✦";position:absolute;left:0;right:0;color:#f2ce65;font-size:19px;letter-spacing:13px;opacity:.9;animation:sparkle 2s ease-in-out infinite}.winner-modal:before{top:9px}.winner-modal:after{bottom:8px;animation-delay:.7s}
+.crown-wrap{width:104px;height:104px;margin:7px auto 15px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid #ffd978aa;background:radial-gradient(circle,#f9d66b2b,#c64dff16 70%);box-shadow:0 0 30px #ffd16638;animation:crownFloat 2s ease-in-out infinite}
+.crown-wrap svg{width:67px;height:67px;filter:drop-shadow(0 0 10px #ffd166aa)}
+.win-kicker{font-size:13px;letter-spacing:3px;color:#e8c9ff;font-weight:800}
+.win-name{font-size:clamp(25px,7vw,36px);font-weight:950;margin:8px 0;color:#fff;text-shadow:0 0 18px #d75affaa;overflow-wrap:anywhere}
+.win-message{color:#f4d7ff;margin:0 0 18px}.win-advance{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid #39e69b77;background:#123b2c;color:#7bffc1;border-radius:30px;font-weight:800;margin-bottom:17px}
+.winner-modal button{width:100%;padding:12px;border-radius:12px}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-18px;width:7px;height:13px;border-radius:2px;background:var(--c);left:var(--x);animation:confettiFall var(--d) linear var(--delay) infinite;transform:rotate(var(--r));opacity:.9}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}@keyframes winPop{from{opacity:0;transform:translateY(22px) scale(.82)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes sparkle{0%,100%{opacity:.35;transform:scale(.95)}50%{opacity:1;transform:scale(1.04)}}@keyframes confettiFall{to{top:110%;transform:translateX(22px) rotate(540deg)}}
+@media(prefers-reduced-motion:reduce){.winner-overlay,.winner-modal,.crown-wrap,.winner-modal:before,.winner-modal:after,.confetti i{animation:none!important}}
+
+</style>
+</head>
+<body>
+<header><div class="eyebrow">REAL TENNIS • TOURNAMENT</div><h1>🎾 TENNIS <span style="color:#c64dff">BRACKET BATTLE</span></h1><p>رتّب اللاعبين عشوائياً، تابع الوقت والأهداف، وصعّد الفائز إلى المرحلة التالية.</p></header>
+<main>
+<section class="panel" id="setup">
+<h2>١) إعداد البطولة</h2>
+<div class="row">
+<div><label for="count">عدد اللاعبين</label><select id="count"><option value="2">2 لاعبين</option><option value="4">4 لاعبين</option><option value="6">6 لاعبين</option><option value="8" selected>8 لاعبين</option></select></div>
+<div><label for="minutes">وقت المباراة</label><select id="minutes"><option value="10" selected>10 دقائق</option><option value="5">5 دقائق</option><option value="15">15 دقيقة</option></select></div>
+<div><label for="goalLimit">عدد الأهداف للفوز (1–50)</label><input id="goalLimit" type="number" min="1" max="50" step="1" value="10" inputmode="numeric"></div>
+</div>
+<div class="names" id="names"></div>
+<div class="row"><button class="primary" id="make">🎲 خلط الأسماء وإنشاء المخطط</button><button id="fill">أسماء تجريبية</button></div>
+<p class="subtle">في بطولة ٦ لاعبين، لاعبان يتأهلان تلقائياً إلى نصف النهائي، والأربعة الآخرون يلعبون مباراتين تمهيديتين.</p>
+</section>
+<section class="panel hidden" id="arena">
+<h2>٢) المباراة المحددة</h2>
+<div class="row"><div><strong id="matchtitle">—</strong><div class="subtle" id="roundtitle"></div></div><div><button class="danger" id="resetMatch">إعادة ضبط المباراة</button></div></div>
+<div class="timerbox"><div class="timer" id="timer">10:00</div><div class="timerlabel" id="timerlabel">الوقت جاهز</div><div class="row" style="margin-top:10px"><button class="primary" id="start">▶ بدء الوقت</button><button id="pause">⏸ إيقاف مؤقت</button><button id="restart">↻ إعادة الوقت</button></div></div>
+<div class="scoreboard">
+<div class="side" id="side0"><div class="name" id="p0name">اللاعب الأول</div><div class="bigscore" id="s0">0</div><div class="sidebuttons"><button class="primary" id="plus0">+ هدف</button><button id="minus0">− هدف</button></div></div>
+<div class="side" id="side1"><div class="name" id="p1name">اللاعب الثاني</div><div class="bigscore" id="s1">0</div><div class="sidebuttons"><button class="primary" id="plus1">+ هدف</button><button id="minus1">− هدف</button></div></div>
+</div>
+<div class="status" id="status">اضغط «بدء الوقت» لبدء المباراة. أول لاعب يصل إلى ١٠ أهداف يحقق الفوز بالنقاط، وبعدها اختَر الفائز للتأهل.</div>
+<div class="winnerpick"><button class="blue" id="win0">تأهيل اللاعب الأول</button><button class="blue" id="win1">تأهيل اللاعب الثاني</button></div>
+<p class="subtle">تقدر تختار الفائز بعد انتهاء الوقت أو عند وصول أحد اللاعبين إلى ١٠ أهداف. اختيار الفائز هو الذي ينقله للمرحلة التالية.</p>
+</section>
+<section class="panel hidden" id="bracketPanel"><h2>٣) مخطط البطولة</h2><div id="bracket" class="bracket"></div></section>
+</main>
+<div id="winnerOverlay" class="winner-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winnerName"><div class="winner-modal"><div class="confetti" id="confetti"></div><div class="crown-wrap"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M8 20L20 30L31 9L43 30L56 18L51 48H13L8 20Z" fill="#FFD166" stroke="#FFF0B3" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 53H50" stroke="#FFD166" stroke-width="4" stroke-linecap="round"/><circle cx="8" cy="18" r="4" fill="#FFF0B3"/><circle cx="31" cy="8" r="4" fill="#FFF0B3"/><circle cx="56" cy="16" r="4" fill="#FFF0B3"/></svg></div><div class="win-kicker">MATCH WINNER</div><div class="win-name" id="winnerName">اسم الفائز</div><p class="win-message" id="winnerMessage">فوز مستحق!</p><div class="win-advance" id="advanceMessage">✓ تأهل تلقائياً للمرحلة التالية</div><button class="primary" id="winnerContinue">متابعة البطولة</button></div></div><footer>بطولة ودّية — النتائج محفوظة داخل الصفحة الحالية فقط.</footer>
+<script>
+const $=id=>document.getElementById(id);
+let rounds=[],current=null,scores=[0,0],seconds=600,interval=null,started=false,ended=false,matchMinutes=10,goalLimit=10;
+const roundNames={0:'الدور التمهيدي',1:'نصف النهائي',2:'النهائي',3:'النهائي'};
+function makeInputs(){
+ const n=+$('count').value, old=[...document.querySelectorAll('.nameInput')].map(x=>x.value);
+ $('names').innerHTML='';
+ for(let i=0;i<n;i++){let inp=document.createElement('input');inp.className='nameInput';inp.placeholder=`اسم اللاعب ${i+1}`;inp.value=old[i]||`لاعب ${i+1}`;$('names').appendChild(inp)}
+}
+$('count').addEventListener('change',makeInputs);makeInputs();
+$('fill').onclick=()=>{document.querySelectorAll('.nameInput').forEach((x,i)=>x.value=['أحمد','علي','حسن','حسين','مصطفى','محمد','عباس','كرار'][i])};
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function createTournament(){
+ clearInterval(interval);interval=null;const names=[...document.querySelectorAll('.nameInput')].map((x,i)=>x.value.trim()||`لاعب ${i+1}`);
+ shuffle(names);matchMinutes=+$('minutes').value;goalLimit=Math.max(1,Math.min(50,parseInt($('goalLimit').value,10)||10));$('goalLimit').value=goalLimit;
+ rounds=[];current=null;
+ const n=names.length;
+ if(n===2){rounds=[[{a:names[0],b:names[1],sa:0,sb:0,winner:null,done:false}]]}
+ else if(n===4){rounds=[[{a:names[0],b:names[1],sa:0,sb:0,winner:null,done:false},{a:names[2],b:names[3],sa:0,sb:0,winner:null,done:false}],[{a:null,b:null,sa:0,sb:0,winner:null,done:false}]]}
+ else if(n===6){rounds=[[{a:names[0],b:names[1],sa:0,sb:0,winner:null,done:false},{a:names[2],b:names[3],sa:0,sb:0,winner:null,done:false}],[{a:names[4],b:null,sa:0,sb:0,winner:null,done:false},{a:names[5],b:null,sa:0,sb:0,winner:null,done:false}],[{a:null,b:null,sa:0,sb:0,winner:null,done:false}]]}
+ else {rounds=[[{a:names[0],b:names[1],sa:0,sb:0,winner:null,done:false},{a:names[2],b:names[3],sa:0,sb:0,winner:null,done:false},{a:names[4],b:names[5],sa:0,sb:0,winner:null,done:false},{a:names[6],b:names[7],sa:0,sb:0,winner:null,done:false}],[{a:null,b:null,sa:0,sb:0,winner:null,done:false},{a:null,b:null,sa:0,sb:0,winner:null,done:false}],[{a:null,b:null,sa:0,sb:0,winner:null,done:false}]]}
+ $('arena').classList.remove('hidden');$('bracketPanel').classList.remove('hidden');
+ renderBracket();
+ let first=findNext();if(first)selectMatch(first.r,first.m);else updateArena();
+}
+function renderBracket(){
+ const root=$('bracket');root.innerHTML='';
+ rounds.forEach((round,ri)=>{
+  const col=document.createElement('div');col.className='round';
+  let h=document.createElement('h3');h.textContent=roundNames[ri]||`المرحلة ${ri+1}`;col.appendChild(h);
+  round.forEach((m,mi)=>{
+   const card=document.createElement('div');card.className='match'+(current&&current.r===ri&&current.m===mi?' active':'');
+   const head=document.createElement('div');head.className='matchhead';
+   const lab=document.createElement('span');lab.className='tag';lab.textContent=`مباراة ${mi+1}`;
+   const state=document.createElement('span');state.className='tag';state.textContent=m.done?(m.winner==='__BYE__'?'تأهل مباشر':`الفائز: ${m.winner}`):'لم تُلعب';
+   head.append(lab,state);card.appendChild(head);
+   const players=document.createElement('div');players.className='players';
+   const pa=document.createElement('div');pa.className='player'+(m.winner===m.a?' winner':'');pa.textContent=m.a||'بانتظار المتأهل';
+   const vs=document.createElement('div');vs.className='vs';vs.textContent='ضد';
+   const pb=document.createElement('div');pb.className='player'+(m.winner===m.b?' winner':'');pb.textContent=m.b||'بانتظار المتأهل';
+   players.append(pa,vs,pb);card.appendChild(players);
+   if(m.bye){let bye=document.createElement('div');bye.className='bye';bye.textContent='تأهل مباشر بسبب عدد اللاعبين';card.appendChild(bye)}
+   if(m.a&&m.b&&!m.done){let btn=document.createElement('button');btn.style.width='100%';btn.style.marginTop='9px';btn.textContent='فتح المباراة';btn.onclick=()=>selectMatch(ri,mi);card.appendChild(btn)}
+   col.appendChild(card);
+  });root.appendChild(col);
+ });
+}
+function findNext(){for(let r=0;r<rounds.length;r++)for(let m=0;m<rounds[r].length;m++){let x=rounds[r][m];if(x.a&&x.b&&!x.done)return {r,m}}return null}
+function selectMatch(r,m){if(interval){clearInterval(interval);interval=null}current={r,m};let x=rounds[r][m];scores=[x.sa||0,x.sb||0];seconds=matchMinutes*60;started=false;ended=false;
+ $('arena').classList.remove('hidden');updateArena();renderBracket();$('arena').scrollIntoView({behavior:'smooth',block:'start'})}
+function updateArena(){
+ if(!current){$('matchtitle').textContent='اكتملت البطولة!';$('roundtitle').textContent='مبروك للفائز بالبطولة 🎉';$('p0name').textContent='—';$('p1name').textContent='—';return}
+ const x=rounds[current.r][current.m];
+ $('matchtitle').textContent=`${x.a} ضد ${x.b}`;$('roundtitle').textContent=roundNames[current.r]||`المرحلة ${current.r+1}`;
+ $('p0name').textContent=x.a;$('p1name').textContent=x.b;$('s0').textContent=scores[0];$('s1').textContent=scores[1];
+ $('timer').textContent=formatTime(seconds);$('timerlabel').textContent=ended?'انتهى الوقت':started?'الوقت يعمل':'الوقت جاهز';
+ $('start').disabled=started||ended;$('pause').disabled=!started;$('plus0').disabled=ended||!started;$('plus1').disabled=ended||!started;$('minus0').disabled=ended||!started||scores[0]===0;$('minus1').disabled=ended||!started||scores[1]===0;
+ $('win0').textContent=`تأهيل ${x.a}`;$('win1').textContent=`تأهيل ${x.b}`;
+ $('side0').classList.toggle('winner',x.winner===x.a);$('side1').classList.toggle('winner',x.winner===x.b);
+ if(!ended){if(scores[0]>=goalLimit||scores[1]>=goalLimit)$('status').textContent=`وصل لاعب إلى ${goalLimit} أهداف! جارٍ إعلان الفائز.`;else $('status').textContent=started?'المباراة جارية — عند انتهاء الوقت اختَر الفائز.':'شغّل الوقت أولاً، وبعدها أضف أو احذف الأهداف. الفوز عند العدد الذي حددته.'}
+}
+function formatTime(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
+function saveScores(){if(current){let x=rounds[current.r][current.m];x.sa=scores[0];x.sb=scores[1]}}
+function addScore(i,delta){if(ended||!current||!started||!interval){$('status').textContent='شغّل الوقت أولاً حتى تقدر تضيف أو تحذف الأهداف.';return}scores[i]=Math.max(0,scores[i]+delta);saveScores();updateArena();renderBracket();if(delta>0&&scores[i]>=goalLimit){finishByTen(i)}}
+function showWinnerModal(name,autoAdvance=true,champion=false){
+ const overlay=$('winnerOverlay');$('winnerName').textContent=name;
+ $('winnerMessage').textContent=champion?'🏆 بطل بطولة التنس!':'وصل إلى العدد المطلوب من الأهداف وحقق الفوز!';
+ $('advanceMessage').textContent=champion?'🏆 بطل البطولة':'✓ تأهل تلقائياً للمرحلة التالية';
+ $('winnerContinue').textContent=champion?'إغلاق':'متابعة البطولة';
+ const c=$('confetti');c.innerHTML='';
+ const colors=['#d75aff','#ffd166','#23e65d','#1687ff','#ff5263','#ffffff'];
+ for(let i=0;i<36;i++){const bit=document.createElement('i');bit.style.setProperty('--x',`${Math.random()*100}%`);bit.style.setProperty('--c',colors[i%colors.length]);bit.style.setProperty('--d',`${2.1+Math.random()*2.6}s`);bit.style.setProperty('--delay',`${Math.random()*1.8}s`);bit.style.setProperty('--r',`${Math.random()*180}deg`);c.appendChild(bit)}
+ overlay.classList.remove('hidden');$('winnerContinue').onclick=()=>{overlay.classList.add('hidden');if(autoAdvance)advanceWinner(name)};
+}
+function finishByTen(i){
+ if(!current||ended)return;
+ if(interval)clearInterval(interval);interval=null;started=false;ended=true;
+ const x=rounds[current.r][current.m],name=i===0?x.a:x.b;
+ x.sa=scores[0];x.sb=scores[1];x.winner=name;x.done=true;
+ updateArena();renderBracket();
+ // Automatically qualify the player who reached 10 goals.
+ showWinnerModal(name,true,false);
+}
+$('plus0').onclick=()=>addScore(0,1);$('plus1').onclick=()=>addScore(1,1);$('minus0').onclick=()=>addScore(0,-1);$('minus1').onclick=()=>addScore(1,-1);
+$('start').onclick=()=>{if(started||ended)return;started=true;interval=setInterval(()=>{seconds--;if(seconds<=0){seconds=0;clearInterval(interval);interval=null;started=false;ended=true;$('status').textContent='انتهى الوقت! اختَر اسم الفائز حتى يتأهل.'}updateArena()},1000);updateArena()};
+$('pause').onclick=()=>{if(interval)clearInterval(interval);interval=null;started=false;updateArena();$('timerlabel').textContent='متوقف مؤقتاً'};
+$('restart').onclick=()=>{if(interval)clearInterval(interval);interval=null;seconds=matchMinutes*60;started=false;ended=false;updateArena()};
+$('resetMatch').onclick=()=>{if(!current)return;if(interval)clearInterval(interval);interval=null;scores=[0,0];seconds=matchMinutes*60;started=false;ended=false;saveScores();updateArena();renderBracket()};
+function advanceWinner(winner){
+ if(!current)return;let x=rounds[current.r][current.m];if(!x.a||!x.b)return;
+ if(interval)clearInterval(interval);interval=null;x.sa=scores[0];x.sb=scores[1];x.winner=winner;x.done=true;
+ const r=current.r,m=current.m;
+ if(r<rounds.length-1){
+  const next=rounds[r+1];let slot=Math.floor(m/2);
+  if(rounds[0].length===2 && rounds.length===3 && r===0){slot=m;next[slot].b=winner;}
+  else if(next[slot]){if(m%2===0)next[slot].a=winner;else next[slot].b=winner;}
+  if(next[slot]){next[slot].done=false;next[slot].winner=null;next[slot].sa=0;next[slot].sb=0}
+ }
+ current=null;renderBracket();
+ let nxt=findNext();
+ if(nxt)selectMatch(nxt.r,nxt.m);else{
+  let finalMatch=rounds[rounds.length-1][0];
+  if(finalMatch&&finalMatch.done){$('arena').classList.remove('hidden');$('matchtitle').textContent=`🏆 بطل البطولة: ${finalMatch.winner}`;$('roundtitle').textContent='انتهت البطولة';$('p0name').textContent=finalMatch.a;$('p1name').textContent=finalMatch.b;$('s0').textContent=finalMatch.sa;$('s1').textContent=finalMatch.sb;$('timer').textContent='00:00';$('timerlabel').textContent='البطولة مكتملة';$('status').textContent=`مبروك ${finalMatch.winner}! فاز بالبطولة.`;$('start').disabled=true;$('pause').disabled=true;$('plus0').disabled=true;$('plus1').disabled=true;$('minus0').disabled=true;$('minus1').disabled=true;$('win0').disabled=true;$('win1').disabled=true;showWinnerModal(finalMatch.winner,false,true)}
+  else updateArena();
+ }
+}
+$('win0').onclick=()=>{if(current)advanceWinner(rounds[current.r][current.m].a)};
+$('win1').onclick=()=>{if(current)advanceWinner(rounds[current.r][current.m].b)};
+$('make').onclick=createTournament;
+</script>
+</body></html>
